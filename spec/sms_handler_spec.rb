@@ -32,6 +32,17 @@ describe Hulaki::SmsHandler, type: :service do
         expect { Hulaki::SmsHandler.new.send }.to raise_error(Hulaki::InvalidPhoneNumber)
       end
     end
+
+    context 'Successful SMS delivery' do
+      it 'should return truthy value if passed with valid arguments' do
+        valid_params = {
+            to: '9843498764',
+            from: '9843498765',
+            msg: 'Hello'
+        }
+        expect{Hulaki::SmsHandler.new(valid_params).send}.not_to raise_error
+      end
+    end
   end
 end
 
