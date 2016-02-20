@@ -1,0 +1,2 @@
+class Hulaki::Validator
+end

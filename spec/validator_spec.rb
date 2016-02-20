@@ -1,6 +1,9 @@
 require 'spec_helper'
-describe Validator do
-  context "Validates format of email"
+  before :each do
+    
+  end
+describe Hulaki::Validator do
+  context "Validates format of email" do
     it "should validate format of sender's email"
     it "should validate format of reciepient's email"
   end
@@ -9,5 +12,4 @@ describe Validator do
     it "should validate presence of reciepient's email"
     it "should validate presence of message body"
   end
-
 end
