@@ -1,0 +1,29 @@
+# Rubymine project 
+.idea/
+# Test and misc files
+*.rbc
+capybara-*.html
+.rspec
+/public/system
+/coverage/
+/spec/tmp
+**.orig
+rerun.txt
+pickle-email-*.html
+# Ignore bundler config.
+/.bundle
+# Ignore the default SQLite database and schema.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/schema.rb
+#Configs
+/config/database.yml
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+# Ignore rmvrc
+.rvmrc
+# If using bower-rails ignore default bower_components path bower.json files
+/vendor/assets/bower_components
+*.bowerrc
+bower.json
