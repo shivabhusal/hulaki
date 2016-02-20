@@ -4,8 +4,17 @@ class Hulaki::ContactParser
     @file = file_name
   end 
 
-  def parse_file
-    file = CSV.read(@file, :headers => true).map(&:to_hash)
+  def process
+    parser
   end
 
+  private
+
+  def remove_empty
+    
+  end
+
+  def parser
+    file = CSV.read(@file, :headers => true).map(&:to_hash)
+  end
 end

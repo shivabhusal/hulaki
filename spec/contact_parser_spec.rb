@@ -6,11 +6,13 @@ describe Hulaki::ContactParser do
     let(:file_path) { '/home/neha/contact.csv' }
 
     it "should successfully parse the file" do
-      response = Hulaki::ContactParser.new(file_path).parse_file
+      response = Hulaki::ContactParser.new(file_path).process
       expect(response).to be_a_kind_of(Array)
     end
     
-    it "should eradicate empty rows"
+    it "should eradicate empty rows" do
+    end
+
     it "should store the imported file in hash"
   end
 
