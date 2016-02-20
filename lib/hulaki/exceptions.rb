@@ -10,4 +10,7 @@ module Hulaki
 
   class InvalidMessageBody < StandardError
   end
+
+  class InvalidFilePath< StandardError
+  end
 end

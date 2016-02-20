@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Hulaki::SmsHandler, type: :service do
+  before(:all) { Hulaki::Twilio.mode = 'test' }
   describe '.send' do
     context 'Phone number Validation' do
       it 'should throw exception if phone number is invalid' do
@@ -34,13 +35,20 @@ describe Hulaki::SmsHandler, type: :service do
     end
 
     context 'Successful SMS delivery' do
-      it 'should return truthy value if passed with valid arguments' do
-        valid_params = {
+      let(:valid_params) do
+        {
             to: '9843498764',
             from: '9843498765',
             msg: 'Hello'
         }
-        expect{Hulaki::SmsHandler.new(valid_params).send}.not_to raise_error
+      end
+      it 'should return truthy value if passed with valid arguments' do
+        expect { Hulaki::SmsHandler.new(valid_params).send }.not_to raise_error
+      end
+
+      it "should set Twilio's mode to 'test'" do
+        Hulaki::SmsHandler.new(valid_params).send
+        expect(Hulaki::Twilio.mode).to eq('test')
       end
     end
   end

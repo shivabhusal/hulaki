@@ -10,6 +10,7 @@ class Hulaki::SmsHandler
 
   def send
     verify_details
+    @gateway.send
   end
 
   private
@@ -17,8 +18,14 @@ class Hulaki::SmsHandler
 
   def get_gateway(gateway_name)
     klass = gateway_name.to_s.capitalize
-    eval("Hulaki::#{klass}").new()
-    # eval("Hulaki::#{klass}").new(gateway_config(gateway_name))
+    eval("Hulaki::#{klass}").new(
+        {
+            config: gateway_config(gateway_name),
+            to: to,
+            from: from,
+            message: message
+        })
+
   rescue SyntaxError => e
     raise Hulaki::InvalidSmsGateway, 'Please choose a valid sms gateway'
   end
@@ -28,6 +35,6 @@ class Hulaki::SmsHandler
   end
 
   def gateway_config(gateway_name)
-    Hulaki::Config.parse
+    Hulaki::Config.new.parse[:sms]
   end
 end

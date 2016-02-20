@@ -6,4 +6,8 @@ class Hulaki::Twilio
   def send
 
   end
+  class << self
+    @@mode = 'live'
+    attr_accessor :mode
+  end
 end
