@@ -2,10 +2,12 @@ class Hulaki::SmsHandler
   attr_reader :gateway, :to, :from, :message
 
   def initialize(params = {})
-    @gateway = get_gateway(params.fetch(:gateway, 'twilio'))
     @to = params.fetch(:to, params[:recipient])
     @from = params.fetch(:from, params[:sender])
     @message = params.fetch(:message, params[:msg])
+
+    @gateway = get_gateway(params.fetch(:gateway, 'twilio'))
+
   end
 
   def send
@@ -26,7 +28,7 @@ class Hulaki::SmsHandler
         {
             config: config,
             to: to,
-            from: from || gateway_config['TWILIO_PHONE_NUMBER'],
+            from: from || gateway_config['keys']['TWILIO_PHONE_NUMBER'],
             message: message
         })
 
@@ -36,7 +38,7 @@ class Hulaki::SmsHandler
 
   def verify_details
     Hulaki::SmsValidator.new(to: to,
-                             from: from || gateway_config['TWILIO_PHONE_NUMBER'],
+                             from: from || gateway_config['keys']['TWILIO_PHONE_NUMBER'],
                              message: message).validate
   end
 
