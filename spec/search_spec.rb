@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe Hulaki::SearchEngine do
   context "successfully finds the contact" do
-    it "returns the details of entered value" do 
-      expect(Hulaki::SearchEngine.new(database).search('ram')).to match(/ram/)
+    it "returns the details of entered value" do
+      response = Hulaki::SearchEngine.new(database).search('ram')
+      expect(response).to eq([[{"Name"=>"ram", "Phone"=>"984111111", "Email"=>"abc@example.com", "Address"=>"balaju kathmandu"}, 1.0]])
     end
   end
 
@@ -14,5 +15,5 @@ describe Hulaki::SearchEngine do
 end
 
 def database
-  [{"name"=>"ram", "phone"=>"984111111", "email"=>"abc@example.com", "address"=>"balagu kathmandu"}]  
+  [{"Name"=>"ram", "Phone"=>"984111111", "Email"=>"abc@example.com", "Address"=>"balaju kathmandu"}, {"Name"=>"shiva", "Phone"=>"984111112", "Email"=>"shiva@example.com", "Address"=>"kalanki kathmandu"}, {"Name"=>"shyam", "Phone"=>"984111113", "Email"=>"shyam@example.com", "Address"=>"gongabu kathmandu"}]  
 end
