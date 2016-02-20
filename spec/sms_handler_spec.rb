@@ -20,6 +20,11 @@ describe Hulaki::SmsHandler, type: :service do
         expect(Hulaki::SmsHandler.new(gateway: 'Sparrow').gateway).to \
         be_a_kind_of(Hulaki::Sparrow)
       end
+
+      it 'should select Twilio as Default SMS Gateway' do
+        expect(Hulaki::SmsHandler.new.gateway).to \
+        be_a_kind_of(Hulaki::Twilio)
+      end
     end
 
     context 'Twilio as gateway' do

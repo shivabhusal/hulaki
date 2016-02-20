@@ -23,8 +23,7 @@ class Hulaki::SmsHandler
   end
 
   def verify_details
-    to || (raise Hulaki::InvalidPhoneNumber)
-    message || (raise Hulaki::InvalidPhoneNumber)
+    Hulaki::SmsValidator.new(to: @to, message: @message).validate
   end
 
   def gateway_config(gateway_name)

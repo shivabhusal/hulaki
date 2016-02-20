@@ -7,4 +7,7 @@ module Hulaki
 
   class InvalidSmsGateway < StandardError
   end
+
+  class InvalidMessageBody < StandardError
+  end
 end
