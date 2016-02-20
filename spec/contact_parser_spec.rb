@@ -11,6 +11,8 @@ describe Hulaki::ContactParser do
     end
     
     it "should eradicate empty rows" do
+      response = Hulaki::ContactParser.new(file_path).parse_file
+
     end
 
     it "should store the imported file in hash"
