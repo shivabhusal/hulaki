@@ -4,7 +4,7 @@ describe Hulaki::Config, type: :policy do
   before(:all) { Hulaki::Twilio.mode = 'test' }
 
   describe '#file_path' do
-    let(:file_path) { File.expand_path '~/hulaki/config.yml' }
+    let(:file_path) { File.expand_path Hulaki::Config::ConfigPath }
     let(:invalid_file_path) { File.expand_path '~/hulaki/invalid_config.yml' }
 
     it 'should able to get valid filepath as param' do
@@ -19,7 +19,7 @@ describe Hulaki::Config, type: :policy do
 
   describe '#parse' do
     it 'should return a hash containg twilio config' do
-      config_path = File.expand_path('lib/hulaki/config/config_sample.yml')
+      config_path = File.expand_path(Hulaki::Config::SampleConfigPath)
       response = Hulaki::Config.new(path: config_path).parse
       expect(response).to include('sms')
       expect(response['sms']).to include('gateway')
