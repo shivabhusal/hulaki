@@ -2,14 +2,6 @@ require 'spec_helper'
 
 describe Hulaki::SmsHandler, type: :service do
   before(:all) { Hulaki::Twilio.mode = 'test' }
-  describe '.send' do
-    context 'Phone number Validation' do
-      it 'should throw exception if phone number is invalid' do
-
-      end
-      it 'should respond truthy if valid phone number'
-    end
-  end
 
   describe 'Initializer' do
     context 'Selecting Appropriate SMS Gateway' do
@@ -53,18 +45,3 @@ describe Hulaki::SmsHandler, type: :service do
     end
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

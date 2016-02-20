@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Hulaki::Config, type: :policy do
+  before(:all) { Hulaki::Twilio.mode = 'test' }
+
   describe '#file_path' do
     let(:file_path) { File.expand_path '~/hulaki/config.yml' }
     let(:invalid_file_path) { File.expand_path '~/hulaki/invalid_config.yml' }

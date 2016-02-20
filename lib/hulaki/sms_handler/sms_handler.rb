@@ -35,6 +35,6 @@ class Hulaki::SmsHandler
   end
 
   def gateway_config(gateway_name)
-    Hulaki::Config.new.parse[:sms]
+    Hulaki::Config.new.parse['sms']['gateway']
   end
 end

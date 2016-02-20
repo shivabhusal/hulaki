@@ -19,5 +19,4 @@ class Hulaki::Config
   rescue Errno::ENOENT => e
     raise Hulaki::InvalidFilePath, 'Invalid file.'
   end
-
 end
