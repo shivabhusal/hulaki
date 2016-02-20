@@ -8,7 +8,10 @@ GEM
   specs:
     coderay (1.1.0)
     diff-lcs (1.2.5)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
     method_source (0.8.2)
+    mime-types (2.99)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -35,6 +38,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.10)
   hulaki!
+  mail
   pry
   rake (~> 10.0)
   rspec
