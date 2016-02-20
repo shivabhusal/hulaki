@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ContactParser do 
+describe Hulaki::ContactParser do 
 
   context "If valid csv format is imported" do
     let(:file_name) { File.open('/home/neha/contact.csv') }

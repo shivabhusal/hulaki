@@ -1,5 +1,5 @@
 require "hulaki/version"
-require "contact_parser"
+require "hulaki/contact_parser"
 
 module Hulaki
   # Your code goes here...
