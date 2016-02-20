@@ -1,4 +1,4 @@
-require "hulaki/version"
+require 'hulaki/version'
 require 'twilio-ruby'
 
 require "hulaki/sms_handler/sms_handler"
