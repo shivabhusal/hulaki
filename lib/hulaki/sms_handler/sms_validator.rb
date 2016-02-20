@@ -1,5 +1,6 @@
 class Hulaki::SmsValidator
-  attr_reader :errors, :to, :message
+  attr_reader :errors, :to, :message, :gateway
+  RegexPhoneNumber = /(?:\+?|\b)[0-9]{10}\b/
 
   def initialize(params = {})
     @errors = {}
@@ -10,5 +11,13 @@ class Hulaki::SmsValidator
   def validate
     to || (raise Hulaki::InvalidPhoneNumber, 'Phone number should be present.')
     message || (raise Hulaki::InvalidMessageBody, 'Message body should be present.')
+
+    check_if_number_invalid
+  end
+
+  private
+  def check_if_number_invalid
+    RegexPhoneNumber.match(to) || (raise Hulaki::InvalidPhoneNumber,
+                                         'Phone number should be valid.')
   end
 end
