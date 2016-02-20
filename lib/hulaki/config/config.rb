@@ -1,4 +1,5 @@
 require 'yaml'
+require 'erb'
 class Hulaki::Config
   ConfigPath = '~/hulaki/config.yml'
   SampleConfigPath = 'lib/hulaki/config/config_sample.yml'

@@ -3,10 +3,10 @@ class Hulaki::Twilio
 
   def initialize(params = {})
     @to = params[:to]
-    @from = params[:from]
     @message = params[:message]
 
     @config = params[:config]['keys']
+    @from = params.fetch(:from, @config['TWILIO_PHONE_NUMBER'])
     @client = Twilio::REST::Client.new @config['TWILIO_ACCOUNT_SID'],
                                        @config['TWILIO_AUTH_TOKEN']
   end

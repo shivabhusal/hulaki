@@ -14,15 +14,19 @@ class Hulaki::SmsHandler
   end
 
   private
-  attr_reader :to, :message
 
-  def get_gateway(gateway_name)
+  def get_gateway(gateway_name = nil)
+    config = gateway_config
+
+    gateway_name ||= config['name']
+
     klass = gateway_name.to_s.capitalize
+
     eval("Hulaki::#{klass}").new(
         {
-            config: gateway_config(gateway_name),
+            config: config,
             to: to,
-            from: from,
+            from: from || gateway_config['TWILIO_PHONE_NUMBER'],
             message: message
         })
 
@@ -31,10 +35,12 @@ class Hulaki::SmsHandler
   end
 
   def verify_details
-    Hulaki::SmsValidator.new(to: to, from: from, message: message).validate
+    Hulaki::SmsValidator.new(to: to,
+                             from: from || gateway_config['TWILIO_PHONE_NUMBER'],
+                             message: message).validate
   end
 
-  def gateway_config(gateway_name)
+  def gateway_config
     Hulaki::Config.new.parse['sms']['gateway']
   end
 end
