@@ -33,6 +33,7 @@ GEM
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
     tins (1.8.2)
+    smarter_csv (1.1.0)
     slop (3.6.0)
     twilio-ruby (4.11.1)
       builder (>= 2.1.2)
@@ -49,6 +50,7 @@ DEPENDENCIES
   pry
   rake (~> 10.0)
   rspec
+  smarter_csv
   twilio-ruby (~> 4.11.1)
 
 BUNDLED WITH

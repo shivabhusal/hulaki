@@ -2,6 +2,8 @@ require "hulaki/version"
 require "amatch"
 require "hulaki/search_engine"
 require 'hulaki/version'
+require "hulaki/contact_parser"
+require 'smarter_csv'
 require 'twilio-ruby'
 require 'pry'
 require "hulaki/sms_handler/sms_handler"
