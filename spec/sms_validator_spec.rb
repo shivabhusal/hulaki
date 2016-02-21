@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Hulaki::SmsValidator, type: :policy do
+  before(:all) { Hulaki::Twilio.mode = 'test' }
   describe '.validate' do
     let(:valid_number) { '9843488767' }
     let(:invalid_number) { '1asd1111111' }
