@@ -1,12 +1,15 @@
 class Hulaki::SearchEngine
   include Amatch
+
   def initialize
     contact_parser = Hulaki::ContactParser.new
     @csv_data = contact_parser.perform
   end
 
   def perform(search_data)
-    search(search_data)
+    unless @csv_data.nil?
+      search(search_data)
+    end
   end
 
   private
