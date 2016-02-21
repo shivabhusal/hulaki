@@ -12,6 +12,7 @@ require "hulaki/sms_handler/gateway_adapters/twilio"
 require "hulaki/sms_handler/gateway_adapters/sparrow"
 require 'hulaki/config/config'
 require 'hulaki/exceptions'
+
 module Hulaki
   # Your code goes here...
 end

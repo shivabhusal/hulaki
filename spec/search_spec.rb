@@ -3,7 +3,9 @@ require 'spec_helper'
 describe Hulaki::SearchEngine do
   context "successfully finds the contact" do
     it "returns the details of entered value" do
-      response = Hulaki::SearchEngine.new(database).search('ram')
+      search_engine = Hulaki::SearchEngine.new
+      response = search_engine.perform_action("anu didi")
+      binding.pry
       expect(response).to eq([[{"Name"=>"ram", "Phone"=>"984111111", "Email"=>"abc@example.com", "Address"=>"balaju kathmandu"}, 1.0]])
     end
   end

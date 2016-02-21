@@ -41,4 +41,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'twilio-ruby', '~> 4.11.1'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'amatch'
+  spec.add_development_dependency 'smarter_csv'
 end
