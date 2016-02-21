@@ -17,6 +17,14 @@ class Hulaki::SmsValidator
     check_if_number_invalid
   end
 
+  def self.is_phone_number?(number)
+    !is_not_phone_number?(number)
+  end
+
+  def self.is_not_phone_number?(number)
+    number.match(RegexPhoneNumber).nil?
+  end
+
   private
   def check_if_number_invalid
     RegexPhoneNumber.match(to) || (raise Hulaki::InvalidPhoneNumber,
@@ -25,4 +33,5 @@ class Hulaki::SmsValidator
     RegexPhoneNumber.match(from) || (raise Hulaki::InvalidPhoneNumber,
                                            "Phone number '#{from}' is invalid.")
   end
+
 end
