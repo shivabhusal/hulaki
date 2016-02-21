@@ -5,7 +5,6 @@ describe Hulaki::SearchEngine do
     it "returns the details of entered value" do
       search_engine = Hulaki::SearchEngine.new
       response = search_engine.perform_action("anu didi")
-      binding.pry
       expect(response).to eq([[{"Name"=>"ram", "Phone"=>"984111111", "Email"=>"abc@example.com", "Address"=>"balaju kathmandu"}, 1.0]])
     end
   end
