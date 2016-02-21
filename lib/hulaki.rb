@@ -7,6 +7,7 @@ require 'hulaki/config'
 require 'hulaki/exceptions'
 require 'hulaki/validator'
 require 'hulaki/mailer'
+require 'mail'
 
 module Hulaki
   # Your code goes here...

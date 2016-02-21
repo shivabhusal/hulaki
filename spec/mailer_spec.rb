@@ -1,6 +1,8 @@
 require 'spec_helper'
 describe Hulaki::Mailer do
-  describe ".send" do
-    it "should send email to reciepient email adress"
-  end
+  let(:mail) { Hulaki::Mailer.new(:to=> "sis.ccr@gmail.com",sub: "test", :body=> "hello") }
+
+    it "should send email to reciepient email adress" do
+      expect(mail.send).to include("sent")
+    end
 end
