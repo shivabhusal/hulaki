@@ -28,3 +28,4 @@ pickle-email-*.html
 *.bowerrc
 bower.json
 /lib/hulaki/config/config.yml
+*.gem
