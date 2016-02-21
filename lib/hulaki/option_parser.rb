@@ -8,6 +8,7 @@ class Hulaki::OptionParser
         {
             to: [],
             from: [],
+            subject: 'Mic testing',
             message: 'sample message',
             command: 'help'
         })
@@ -42,6 +43,10 @@ class Hulaki::OptionParser
 
       opts.on('-m [Message]', '--message [Message]', String, 'Message to be sent to recipient') do |msg|
         @config.message = msg
+      end
+
+      opts.on('-S [Subject]', '--subject [Subject]', String, 'Subject to email') do |sub|
+        @config.subject = sub
       end
 
       opts.on('-f x,y,z', '--from x,y,z', Array, 'Help / Examples') do |sender_list|
