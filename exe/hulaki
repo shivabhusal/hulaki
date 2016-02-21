@@ -6,5 +6,5 @@ this_file = Pathname.new(__FILE__).realpath
 $:.unshift File.expand_path("../../lib", this_file)
 
 require 'hulaki'
-Hulaki::OptionParser.new.parse(ARGV)
-Hulaki::Core.new
+config = Hulaki::OptionParser.new.parse(ARGV)
+Hulaki::Core.new(config).perform
