@@ -10,6 +10,10 @@ class Hulaki::ContactParser
   def parse
     options = {:strings_as_keys => true, :downcase_header => true}
     data = SmarterCSV.process(contact_file, options)
+  rescue Errno::ENOENT
+    puts "Contact file not found. Make sure there is file"
+    puts @file_path
+    nil
   end
 
   def contact_file

@@ -55,7 +55,7 @@ class Hulaki::OptionParser
 
       opts.on('-s [name/contact]', '--search [name/contact]', String, 'Search keyword') do |word|
         response = Hulaki::SearchEngine.new.perform(word)
-        Hulaki::Presenter.new(response).display
+        Hulaki::Presenter.new(response).display if response
         exit
       end
 
