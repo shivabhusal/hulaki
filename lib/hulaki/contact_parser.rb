@@ -4,10 +4,6 @@ class Hulaki::ContactParser
   # For example:
   #   Dir.home => "/home/neha"
 
-  def initialize(file_name)
-    @file = file_name
-  end 
-
   def process
     parser
   end
