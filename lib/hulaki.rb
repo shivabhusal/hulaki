@@ -35,6 +35,9 @@ class Hulaki::Core
     # Hulaki::EmailValidator.is_email?(email)
   end
 
+  def handle_email(recipient)
+  end
+
   def handle_sms(recipient)
     sms_handler = Hulaki::SmsHandler.new(
         {
