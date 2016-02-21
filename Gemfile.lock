@@ -35,6 +35,7 @@ GEM
     tins (1.8.2)
     smarter_csv (1.1.0)
     slop (3.6.0)
+    smarter_csv (1.1.0)
     twilio-ruby (4.11.1)
       builder (>= 2.1.2)
       jwt (~> 1.0)
