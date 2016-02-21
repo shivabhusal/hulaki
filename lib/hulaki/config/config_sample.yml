@@ -19,7 +19,7 @@ email:
   address: "smtp.gmail.com"
   port: 587
   domain: 'gmail.com'
-  user_name: "example@gmail.com"
+  user_name: "jyaasaruby@gmail.com"
   password: "p@ssword123"
   authentication: "plain"
-  from: 'hulaki'
+  from: 'shishir'

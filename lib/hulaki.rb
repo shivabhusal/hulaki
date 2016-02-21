@@ -62,9 +62,6 @@ puts 'Welcome to Hulaki : Your best companion! to make your day great.'
     puts "Email sent to #{recipient}."
   end
 
-  def handle_email(recipient)
-  end
-
   def handle_sms(recipient)
     puts "Sending SMS to #{recipient}"
     sms_handler = Hulaki::SmsHandler.new(
