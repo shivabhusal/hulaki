@@ -1,7 +1,7 @@
 require_relative 'recursive_ostruct'
 require 'fileutils'
 require 'optparse'
-
+require_relative 'presenter'
 class Hulaki::OptionParser
   def initialize
     @config = RecursiveOstruct.ostruct(
@@ -46,6 +46,12 @@ class Hulaki::OptionParser
 
       opts.on('-f x,y,z', '--from x,y,z', Array, 'Help / Examples') do |sender_list|
         @config.to = sender_list
+      end
+
+      opts.on('-s [name/contact]', '--search [name/contact]', String, 'Search keyword') do |word|
+        response = Hulaki::SearchEngine.new.perform(word)
+        Hulaki::Presenter.new(response).display
+        exit
       end
 
       # ----------------------------------------------------------------------
