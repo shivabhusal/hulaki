@@ -21,6 +21,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
+    smarter_csv (1.1.0)
 
 PLATFORMS
   ruby
@@ -30,6 +31,7 @@ DEPENDENCIES
   hulaki!
   rake (~> 10.0)
   rspec
+  smarter_csv
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

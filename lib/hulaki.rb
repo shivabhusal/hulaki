@@ -1,6 +1,6 @@
 require "hulaki/version"
 require "hulaki/contact_parser"
-require "csv"
+require 'smarter_csv'
 
 require "hulaki/sms_handler/sms_handler"
 require "hulaki/sms_handler/sms_validator"

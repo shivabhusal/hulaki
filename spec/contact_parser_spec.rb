@@ -10,12 +10,6 @@ describe Hulaki::ContactParser do
       expect(response).to be_a_kind_of(Array)
     end
     
-    it "should eradicate empty rows" do
-      response = Hulaki::ContactParser.new(file_path).parse_file
-
-    end
-
-    it "should store the imported file in hash"
   end
 
   context "If valid csv format is not improted" do
@@ -23,3 +17,4 @@ describe Hulaki::ContactParser do
   end
   
 end
+
