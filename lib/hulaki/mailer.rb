@@ -1,13 +1,12 @@
 class Hulaki::Mailer
   def initialize(params={})
     configure
-    sender = @env["from"]
-    @msg = Mail.new({
-      :to => params[:to],
-      :from=> sender,
-      :subject=> params[:sub],
-      :body=> params[:body]
-    })
+    @reciever = params[:to]
+    @sender = @env["from"]
+    sender_email = @env["user_name"]
+    @message = params[:body]
+    @sub = params[:sub]
+    validate(@reciever, sender_email, @message)
   end
   def deliver
     @msg.deliver
@@ -30,33 +29,27 @@ class Hulaki::Mailer
        :domain               => domain,
        :user_name            => user_name,
        :password             => password,
-       :authentication       =>authentication,
+       :authentication       => authentication,
        :enable_starttls_auto => true
      }
    end
   end
+  def create_mail
+    @msg = Mail.new({
+      :to => @reciever,
+      :from=> @sender,
+      :subject=> @sub,
+      :body=> @message
+    })
+    self.deliver
+  end
+  def validate(reciever, sender, message)
+    validator = Hulaki::EmailValidator.new(from: reciever, to: sender, message: message)
+    errors = validator.validates_format && validator.validates_presence
+    if(errors.empty?)
+      create_mail
+    else
+      errors
+    end
+  end
 end
-
-
-#
-# msg = Mail.new({
-#   :to => params[:to],
-#   :subject=> params[:sub],
-#   :body=> params[:body],
-# })
-#   m = Mail.new do
-#     to 'sis.ccr@gmail.com'
-#     from 'sis.ccr@gmail.com'
-#     subject 'please have a look at this'
-#     body 'This is the body'
-#   end
-# #
-#     Mail.defaults do
-#       delivery_method :smtp, { :address              => "smtp.gmail.com",
-#                                :port                 => 587,
-#                                :domain               => 'gmail.com',
-#                                :user_name            => ENV["GMAIL_USERNAME"],
-#                                :password             => ENV["GMAIL_PASSWORD"],
-#                                :authentication       => :plain,
-#                                :enable_starttls_auto => true  }
-#                              end
