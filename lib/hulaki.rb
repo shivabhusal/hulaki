@@ -24,7 +24,7 @@ class Hulaki::Core
 
   def perform
     puts '~' * 100
-puts 'Welcome to Hulaki : Your best companion! to make your day great.'
+    puts 'Welcome to Hulaki : Your best companion! to make your day great.'
     puts '~' * 100
 
     @config.to.each do |recipient|
