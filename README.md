@@ -4,9 +4,9 @@
 [![Issue Count](https://codeclimate.com/github/shivabhusal/hulaki/badges/issue_count.svg)](https://codeclimate.com/github/shivabhusal/hulaki)
 [ ![Codeship Status for shivabhusal/hulaki](https://codeship.com/projects/49470f10-ba22-0133-af95-025ac38368ea/status?branch=master)](https://codeship.com/projects/135625)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hulaki`. To experiment with that code, run `bin/console` for an interactive prompt.
+#### Hulaki is a CLI tool to search contact details from your CSV file.
 
-TODO: Delete this and the text above, and describe your gem
+Hulaki makes communication easier by providing ability to search through the contact list. The CLI tool also allows sending direct SMS and/or email to desired person in contact list
 
 ## Installation
 
