@@ -17,6 +17,7 @@ Install this in your system using command.
 >**Note:**  
     - Make sure to install this in your default ruby-version gemset. Other wise you may not be able to use the command from anywhere in your terminal emulator.  
     - Or install in every ruby-version gemset; to make the command `$ hulaki` accessible from anywhere.
+
 ## Usage
 Use the following command for help
 ```bash
@@ -34,6 +35,7 @@ $ hulaki -s search-string
 
 ### Sending SMS
 > First search for contact number, copy it
+
 ```
 $ hulaki -t +977xxxxxxxxxx -m "Message to be sent"
 ```
@@ -45,6 +47,9 @@ $ hulaki -t +977xxxxxxxxxx -m "Message to be sent"
     - You need to update your `Twilio` creds
         - `Hulaki` only supports `Twilio` at the moment. 
     - Also, update the SMTP settings accordingly
+
+---
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
