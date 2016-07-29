@@ -10,24 +10,41 @@ Hulaki makes communication easier by providing ability to search through the con
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'hulaki'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Install this in your system using command.
 
     $ gem install hulaki
 
+>**Note:**  
+    - Make sure to install this in your default ruby-version gemset. Other wise you may not be able to use the command from anywhere in your terminal emulator.  
+    - Or install in every ruby-version gemset; to make the command `$ hulaki` accessible from anywhere.
 ## Usage
+Use the following command for help
+```bash
+$ hulaki -h
+$ hulaki --help
+```
+### Search phone number or other contact detail
+```bash
+$ hulaki -s search-string
+# Example: Hulaki features fuzzy search
+# $ hulaki -s smithjohn
+# $ hulaki -s johsmith
+# $ hulaki -s smijohnth
+```
 
-TODO: Write usage instructions here
+### Sending SMS
+> First search for contact number, copy it
+```
+$ hulaki -t +977xxxxxxxxxx -m "Message to be sent"
+```
 
+## Configuration
+- `Hulaki` requires the file `~/hulaki/contact.csv` to be present. 
+    -  The file must be a valid `CSV` file.
+- When you install the gem, a sample config file is copied to `~/hulaki/config.yml`
+    - You need to update your `Twilio` creds
+        - `Hulaki` only supports `Twilio` at the moment. 
+    - Also, update the SMTP settings accordingly
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
