@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary = %q{Hulaki is basically a CLI tool to search contact details \
                           exported already in CSV format.}
 
-  spec.description = %q{We developers dont have time to grab mobile phones, \
+  spec.description = %Q{We developers don't have time to grab mobile phones, \
                           slide the screen, press pin numbers, open contact list \
                           and search the person you are looking for. Instead it would \
                           me much more easier if we could press some shortcut key \
@@ -25,13 +25,14 @@ Gem::Specification.new do |spec|
   spec.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ['lib']
+  spec.require_paths = ['lib/hulaki_logssger']
+  spec.require_paths << ['lib']
 
-  spec.add_development_dependency 'bundler', '~> 1.10'
-  spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'twilio-ruby', '~> 4.11.1'
-  spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'amatch'
-  spec.add_development_dependency 'smarter_csv'
+  spec.add_runtime_dependency 'bundler', '~> 1.10'
+  spec.add_runtime_dependency 'rake', '~> 10.0'
+  spec.add_runtime_dependency 'pry'
+  spec.add_runtime_dependency 'twilio-ruby', '~> 4.11.1'
+  spec.add_runtime_dependency 'rspec'
+  spec.add_runtime_dependency 'amatch'
+  spec.add_runtime_dependency 'smarter_csv'
 end

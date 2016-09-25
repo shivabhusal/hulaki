@@ -6,8 +6,8 @@ class Hulaki::OptionParser
   def initialize
     @config = RecursiveOstruct.ostruct(
         {
-            to: [],
-            from: [],
+            to:      [],
+            from:    [],
             subject: 'Mic testing',
             message: 'sample message',
             command: 'help'
@@ -24,13 +24,14 @@ class Hulaki::OptionParser
       opts.banner = [
           'Usage: ',
           '------- Search --------',
-          "$ hulaki search 'ram'",
+          '$ hulaki -s search-string',
+          '# Example: Hulaki features fuzzy search',
+          '# $ hulaki -s smithjohn',
+          '# $ hulaki -s johsmith',
+          '# $ hulaki -s smijohnth',
           '',
           '------- SMS --------',
-          "$ hulaki send to:'ram' msg:'Hello' [-s] [--sms]",
-          "$ hulaki send to:'9843486993' msg:'Hello' [-s] [--sms]",
-          "$ hulaki send -t shiva@example.com msg:'Hello' [-s] [--sms]",
-          '',
+          '$ hulaki -t +977xxxxxxxxxx -m "Message to be sent"',
           '------- EMAIL --------',
       ].join("\n")
 
@@ -61,7 +62,7 @@ class Hulaki::OptionParser
 
       # ----------------------------------------------------------------------
       opts.on('-h', '--help', 'Help / Examples') do
-        puts opts.banner
+        Hulaki::Logger.log opts.banner
         exit
       end
 
