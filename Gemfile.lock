@@ -1,12 +1,8 @@
 PATH
   remote: .
   specs:
-    hulaki (0.1.3)
+    hulaki (0.1)
       amatch
-      bundler (~> 1.10)
-      pry
-      rake (~> 10.0)
-      rspec
       smarter_csv
       twilio-ruby (~> 4.11.1)
 
@@ -54,9 +50,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 1.10)
   hulaki!
   mail
   pry
+  rake (~> 10.0)
+  rspec
 
 BUNDLED WITH
    1.13.1
