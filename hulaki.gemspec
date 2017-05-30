@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email    = ['hotline.shiva@gmail.com']
 
   spec.summary  = %q{Hulaki is basically a CLI tool to search contact details \
-                          exported already in CSV format.}
+                          exported already in CSV format, send SMS and Emails in a single command.}
 
   spec.description = %Q{We developers don't have time to grab mobile phones, \
                           slide the screen, press pin numbers, open contact list \
@@ -37,4 +37,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'nexmo',        '~> 4.6.0'
   spec.add_runtime_dependency 'smarter_csv',  '1.1.0'
   spec.add_runtime_dependency 'mail'
+
+  spec.post_install_message = 'Please run `$ hulaki -i` to install Configuration files so that you can modify later'
 end
