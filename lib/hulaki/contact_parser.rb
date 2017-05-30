@@ -1,22 +1,18 @@
 class Hulaki::ContactParser
-
-  DefaultFilePath = '~/hulaki/contact.csv'
+  DEFAULT =  File.expand_path('~/hulaki/contact.csv')
+  @@default_file_path = DEFAULT
 
   def perform
-    parse
+    options = {:strings_as_keys => true, :downcase_header => true}
+    SmarterCSV.process(@@default_file_path, options)
+  rescue Errno::ENOENT
+    raise Hulaki::InvalidFilePath
   end
 
   private
-  def parse
-    options = {:strings_as_keys => true, :downcase_header => true}
-    SmarterCSV.process(contact_file, options)
-  rescue Errno::ENOENT
-    puts 'Contact file not found. Make sure there is file'
-    puts @file_path
-    nil
-  end
-
-  def contact_file
-    @file_path = File.expand_path(DefaultFilePath)
+  class << self
+    def default_file_path=(path)
+      @@default_file_path = File.expand_path(path)
+    end
   end
 end

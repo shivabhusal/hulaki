@@ -1,28 +1,30 @@
 require 'spec_helper'
 
 describe Hulaki::Config, type: :policy do
-  before(:all) { Hulaki::Twilio.mode = 'test' }
+  # need to set it to test-default
+  after(:each){Hulaki::Config.config_file_path = Hulaki::Config::SampleConfigPath}
 
-  describe '#file_path' do
+  describe 'Invalid condition' do
     let(:file_path) { File.expand_path Hulaki::Config::ConfigPath }
     let(:invalid_file_path) { File.expand_path '~/hulaki/invalid_config.yml' }
 
-    it 'should able to get valid filepath as param' do
-      expect(Hulaki::Config.new(path: file_path).file_path).to eq(file_path)
-    end
-
     it 'should throw an expection if file path is invalid' do
-      expect { Hulaki::Config.new(path: invalid_file_path).parse }.to \
-      raise_error(Hulaki::InvalidFilePath)
+      Hulaki::Config.config_file_path = invalid_file_path
+      expect { Hulaki::Config.send(:parse) }.to raise_error(Hulaki::InvalidFilePath)
     end
   end
 
-  describe '#parse' do
+  describe 'Valid condition' do
     it 'should return a hash containg twilio config' do
       config_path = File.expand_path(Hulaki::Config::SampleConfigPath)
-      response = Hulaki::Config.new(path: config_path).parse
+      response = Hulaki::Config.send(:parse)
+
+      keys = response['sms'].keys
+
       expect(response).to include('sms')
-      expect(response['sms']).to include('gateway')
+      expect(keys).to match_array(['twilio', 'nexmo', 'sparrow'])
+      expect(response['sms'][keys.last].keys).to include('API_KEY')
+      expect(response['sms'][keys.last].keys).to include('API_SECRET')
     end
   end
 end

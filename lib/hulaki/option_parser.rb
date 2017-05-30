@@ -1,16 +1,18 @@
 require_relative 'recursive_ostruct'
 require 'fileutils'
 require 'optparse'
+# require File.expand_path('../string_modifier', __FILE__)
 require_relative 'presenter'
 class Hulaki::OptionParser
   def initialize
     @config = RecursiveOstruct.ostruct(
         {
             to:      [],
-            from:    [],
+            from:    nil,
             subject: 'Mic testing',
             message: 'sample message',
-            command: 'help'
+            command: 'help',
+            gateway: nil
         })
   end
 
@@ -21,37 +23,72 @@ class Hulaki::OptionParser
 
   def options
     OptionParser.new do |opts|
-      opts.banner = [
-          'Usage: ',
-          '------- Search --------',
-          '$ hulaki -s search-string',
-          '# Example: Hulaki features fuzzy search',
-          '# $ hulaki -s smithjohn',
-          '# $ hulaki -s johsmith',
-          '# $ hulaki -s smijohnth',
-          '',
-          '------- SMS --------',
-          '$ hulaki -t +977xxxxxxxxxx -m "Message to be sent"',
-          '------- EMAIL --------',
-      ].join("\n")
+      opts.banner =
+          "Usage: \n"\
+          "------- Search --------\n"\
+          "$ hulaki -s search-string\n"\
+          "# Example: Hulaki features fuzzy search\n"\
+          "#  $ hulaki -s smithjohn\n"\
+          "#  $ hulaki -s johsmith\n"\
+          "#  $ hulaki -s smijohnth\n"\
+          "\n"\
+          "------- SMS --------\n"\
+          "$ hulaki -t +977xxxxxxxxxx -m \"Message to be sent\"\n"\
+          "\n"\
+          "# You can even select a specific SMS Gateway\n"\
+          "$ hulaki -t +977xxxxxxxxxx -m \"Message to be sent\" -g nexmo\n"\
+          "$ hulaki -t +61xxxxxxxxxx  -m \"Message to be sent\" -g twilio\n"\
+          "$ hulaki -t +1xxxxxxxxxx   -m \"Message to be sent\" -g sparrow\n"\
+          "\n"\
+          "# You can even broadcast SMSes selecting a specific SMS Gateway\n"\
+          "#   However, keep in mind that multiple SMS request will go to the server\n"\
+          "$ hulaki -t +977xxxxxxxxxx,+9779832xxxxxx -m \"Message to be sent\" -g nexmo\n"\
+          "\n"\
+          "# You can also change the name that appears on recipient's Phone using `-f` switch. This only works with Nexmo\n"\
+          "$ hulaki -t +977xxxxxxxxxx,+9779832xxxxxx -m \"Message to be sent\" -g nexmo -f \"Hero Dai!\"\n"\
+          "\n"\
+          "------- EMAIL --------\n"\
+          "$ hulaki -t someone@example.com -S \"Subject of the email\" -m \"Message to be sent\"\n"\
+          "$ hulaki -t someone@example.com --subject \"Subject of the email\" -m \"Message to be sent\"\n"\
+          "\n"\
+          "# You can even broadcast emails, i.e. mutiple recipients\n"\
+          "#   However, keep in mind that multiple SMTP request will go to the server. No `CC`, `BCC` will be used\n"\
+          "$ hulaki -t someone@example.com,nextperson@email.com --subject \"Subject of the email\" -m \"Message to be sent\"\n"\
+          "\n"\
+          "# You can also change your sender id using `-f` switch\n"\
+          "$ hulaki -t someone@example.com -S \"Subject of the email\" -m \"Message to be sent\" -f \"My Name<anonymous@example.com>\" \n"\
+          "\n"\
+          "------- EMAIL TEMPLATES --------\n"\
+          "# You are allowed to have an Email template in HTML format at `~/hulaki/template.html.erb` which\n"\
+          "#   will be copied when you use `-i` switch. If you have `use_template` setting set to `true` then only\n"\
+          "#   you will be able to use the template\n"\
+          "$ hulaki -t someone@example.com -S \"Subject of the email\" -m \"Message to be sent\"\n".brown.bold
+
+
 
       opts.separator ''
       opts.separator 'Specific options:'
 
-      opts.on('-t x,y,z', '--to x,y,z', Array, 'list of recipient, can be') do |list|
-        @config.to = list
+      # This can be list of emails or phonenumbers separated by commas `,`
+      opts.on('-t x,y,z', '--to x,y,z', Array, 'list of recipient, can be') do |recipient_list|
+        @config.to = recipient_list
       end
 
-      opts.on('-m [Message]', '--message [Message]', String, 'Message to be sent to recipient') do |msg|
-        @config.message = msg
+      opts.on('-m [Message]', '--message [Message]', String, 'Message to be sent to recipient') do |message|
+        @config.message = message
+      end
+      "\n"\
+
+      opts.on('-S [Subject]', '--subject [Subject]', String, 'Subject to email') do |subject|
+        @config.subject = subject
       end
 
-      opts.on('-S [Subject]', '--subject [Subject]', String, 'Subject to email') do |sub|
-        @config.subject = sub
+      opts.on('-g [Gateway Name]', '--gateway [Gateway Name]', String, 'Name of the gateway, `nexmo`, `twilio`, `sparrow` are currently supported') do |gateway|
+        @config.gateway = gateway
       end
 
-      opts.on('-f x,y,z', '--from x,y,z', Array, 'Help / Examples') do |sender_list|
-        @config.to = sender_list
+      opts.on('-f [Sender]', '--from [Sender]', String, "name <email> | PhoneNumber; this will take precedence over `from` in `config.yml`.") do |sender|
+        @config.from = sender
       end
 
       opts.on('-s [name/contact]', '--search [name/contact]', String, 'Search keyword') do |word|
@@ -62,55 +99,20 @@ class Hulaki::OptionParser
 
       # ----------------------------------------------------------------------
       opts.on('-h', '--help', 'Help / Examples') do
-        Hulaki::Logger.log opts.banner
+        puts opts.to_s.blue
         exit
       end
 
       opts.on('-l', '--list', 'list all the options available') do
-        puts opts
+        puts opts.to_s.blue
         exit
       end
 
-      opts.on('-i', '--install', 'Creates ~/hulaki/config.yml') do
-        create_dir
-        start_copying_file
+      opts.on('-i', '--install', 'Creates ~/hulaki/config.yml, `template.html.erb`. Will ask you if have to replace them') do
+        Utils.create_dir
+        Utils.start_copying_file
         exit
       end
     end
-  end
-
-  def create_dir
-    FileUtils.mkdir(File.expand_path('~/hulaki'))
-  rescue Errno::EEXIST
-    puts 'Directory already exists.'
-  end
-
-  def start_copying_file
-    this_file = __FILE__
-    file_path = File.expand_path('../../lib/hulaki/config/config_sample.yml',
-                                 File.dirname(this_file))
-    desc_file = File.expand_path('~/hulaki/config.yml')
-    if File.exist?(desc_file)
-      puts "Looks like the file '#{desc_file}' already exists."
-      puts 'shall we forcefully override the file?(yes/no)'
-      handle_conflict(file_path, desc_file)
-    else
-      copy_file(file_path, desc_file)
-    end
-  end
-
-  def handle_conflict(file_path, desc_file)
-    input = gets().chomp()
-    if %w{yes y}.include?(input.downcase)
-      copy_file(file_path, desc_file)
-    else
-      puts 'You choose to leave it as it is.'
-    end
-  end
-
-  def copy_file(file_path, desc_file)
-    puts "Creating file '~/hulaki/config.yml' ..."
-    FileUtils.cp(file_path, desc_file)
-    puts "Created file '~/hulaki/config.yml' ..."
   end
 end

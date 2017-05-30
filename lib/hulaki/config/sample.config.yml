@@ -1,0 +1,31 @@
+sms:
+  # The later config will override the former one
+  # To have multiple config and switch between them, comment the not used one
+  twilio:
+    default:                       true
+    API_KEY:                       ACf43b1e6876as8d7a6sd27515ea49e418
+    API_SECRET:                    75768435c30daeef519439kjhkjahsdk
+    ACCOUNT_PHONE_NUMBER:          +150447566666
+
+  nexmo:
+    API_KEY:                       ACf43b1e6167987123jhkhkhkjjj49e418
+    API_SECRET:                    75768435c30daeef519439c123123123f
+    ACCOUNT_PHONE_NUMBER:          +154444451701
+
+  sparrow:
+    API_KEY:                       ACf43b1e6167987123jhkhkhkjjj49e418
+    API_SECRET:                    75768435c30daeef519439c123123123f
+    ACCOUNT_PHONE_NUMBER:          +154444451701
+    from:                          Your Name
+
+email:
+  delivery_method:                 smtp
+  address:                         smtp.gmail.com
+  port:                            587
+  domain:                          gmail.com
+  user_name:                       youremail@gmail.com
+  password:                        p@ssword123
+  authentication:                  plain
+  from:                            your_name <your_email@example.com>
+  # This feature will let you use a template stored in `~/hulaki/template.`
+  use_template:                    true

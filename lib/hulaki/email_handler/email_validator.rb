@@ -2,10 +2,10 @@ class Hulaki::EmailValidator
   EmailRegex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
   def initialize(options = {})
-    @sender_email = options[:from]
+    @sender_email     = options[:from]
     @reciepient_email = options[:to]
-    @message = options[:message]
-    @errors = {}
+    @message          = options[:message]
+    @errors           = {}
   end
 
   def validates_presence

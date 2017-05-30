@@ -1,35 +1,35 @@
+require 'smarter_csv'
 require 'yaml'
 require 'erb'
+
 class Hulaki::Config
-  ConfigPath = '~/hulaki/config.yml'
-  SampleConfigPath = 'lib/hulaki/config/config_sample.yml'
-  @@config_file_path = ConfigPath
-  attr_accessor :file_path
+  ConfigPath       = '~/hulaki/config.yml'
+  SampleConfigPath = File.expand_path('../sample.config.yml', __FILE__)
+  SampleContactPath = File.expand_path('../sample.contact.csv', __FILE__)
+  SampleTemplatePath = File.expand_path('../sample.template.html.erb', __FILE__)
 
-  def initialize(params = {})
-    @file_path = File.expand_path(params.fetch(:path, @@config_file_path))
-  end
-
-  def parse
-    read_file
-  end
-
-  private
-
-  def read_file
-    read_file = File.open(@file_path).read
-    YAML.load(ERB.new(read_file).result)
-  rescue Errno::ENOENT => e
-    raise Hulaki::InvalidFilePath, 'Invalid file.'
-  end
+  @@config_file_path = File.expand_path(ConfigPath)
 
   class << self
-    def config_file_path=(config_file_path)
-      @@config_file_path = config_file_path
+    def [](key)
+      config[key]
     end
 
-    def config_file_path
-      @@config_file_path
+    def config_file_path=(config_file_path)
+      @@config_file_path = File.expand_path(config_file_path)
+    end
+
+    private
+
+    def config
+      @@config ||= parse
+    end
+
+    def parse
+      read_file = File.open(@@config_file_path ).read
+      YAML.load(ERB.new(read_file).result)
+    rescue Errno::ENOENT => e
+      raise Hulaki::InvalidFilePath, 'Invalid file.'
     end
   end
 end
