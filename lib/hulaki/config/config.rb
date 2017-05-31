@@ -3,10 +3,10 @@ require 'yaml'
 require 'erb'
 
 class Hulaki::Config
-  ConfigPath       = '~/hulaki/config.yml'
-  SampleConfigPath = File.expand_path('../sample.config.yml', __FILE__)
-  SampleContactPath = File.expand_path('../sample.contact.csv', __FILE__)
-  SampleTemplatePath = File.expand_path('../sample.template.html.erb', __FILE__)
+  ConfigPath          = '~/hulaki/config.yml'
+  SampleConfigPath    = File.expand_path('../sample.config.yml',        __FILE__)
+  SampleContactPath   = File.expand_path('../sample.contact.csv',       __FILE__)
+  SampleTemplatePath  = File.expand_path('../sample.template.html.erb', __FILE__)
 
   @@config_file_path = File.expand_path(ConfigPath)
 

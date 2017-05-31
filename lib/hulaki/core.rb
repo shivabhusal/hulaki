@@ -1,3 +1,4 @@
+require 'clipboard'
 
 class Hulaki::Core
   def initialize(config)
@@ -5,6 +6,15 @@ class Hulaki::Core
   end
 
   def perform
+    if @config.search_keyword
+      handle_search_and_clipboard
+    else
+      handle_messaging
+    end
+  end
+
+  private
+  def handle_messaging
     puts '~' * 100
     puts 'Welcome to Hulaki : Your best companion! to make your day great.'
     puts '~' * 100
@@ -21,10 +31,7 @@ class Hulaki::Core
     puts '~' * 100
     puts @config.message
     puts '~' * 100
-
   end
-
-  private
 
   def is_phone?(number)
     Hulaki::SmsValidator.is_phone_number?(number)
@@ -63,4 +70,18 @@ class Hulaki::Core
   def get_sender
     @config[:from] || Hulaki::Config['email']['from']
   end
+
+  def handle_search_and_clipboard
+    puts 
+    response = Hulaki::SearchEngine.new.perform(@config.search_keyword)
+    Hulaki::Presenter.new(response).display if response
+
+    if @config.copy_phone_number
+      number = response[0][0]['phone_1___value'].gsub(' ', '')
+      Clipboard.copy number
+      puts "Number '#{number.underline}' is copied to your clipboard"
+      puts
+    end
+  end
+
 end

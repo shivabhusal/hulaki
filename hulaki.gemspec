@@ -32,11 +32,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rspec'
 
-  spec.add_runtime_dependency 'amatch',       '~> 0.3.1'
-  spec.add_runtime_dependency 'twilio-ruby',  '~> 4.11.1'
-  spec.add_runtime_dependency 'nexmo',        '~> 4.6.0'
-  spec.add_runtime_dependency 'smarter_csv',  '1.1.0'
-  spec.add_runtime_dependency 'mail'
+  spec.add_runtime_dependency 'amatch',         '~> 0.3.1'
+  spec.add_runtime_dependency 'twilio-ruby',    '~> 4.11.1'
+  spec.add_runtime_dependency 'nexmo',          '~> 4.6.0'
+  spec.add_runtime_dependency 'mail',           '~> 2.6.3'
+  spec.add_runtime_dependency 'smarter_csv',    '1.1.0'
+  spec.add_runtime_dependency 'terminal-table', '1.8.0'
+  spec.add_runtime_dependency 'clipboard',      '1.1.0'
 
   spec.post_install_message = 'Please run `$ hulaki -i` to install Configuration files so that you can modify later'
 end

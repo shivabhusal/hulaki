@@ -5,6 +5,18 @@ module Utils
     puts 'Looks like directory `~/hulaki` already exists.'.brown
   end
 
+  def install_dependencies
+    if `which xclip`.match('not found')
+      puts "Looks like you don't `xclip` installed in your system. It is required to copy phone numbers to ClipBoard"
+      puts 'We are installing it right now ... '
+      puts 'It will ask you password: Be ready'
+      puts `sudo apt-get install xclip`.red
+      puts '`xclip` successfully installed!'.green
+    else
+      puts '`xclip` is already installed!'
+    end
+  end
+
   def start_copying_file
     # this line is for debugging purposes
     this_file = __FILE__
@@ -46,6 +58,19 @@ module Utils
     Hulaki::Logger.log  "Created file '#{desc_file}' ..."
   end
 
-  module_function :create_dir, :start_copying_file, :handle_conflict, :copy_file
+  def present(object)
+    object.to_s.split("\n").map{|x|
+      if x[0] == '#'
+        x.gray
+      elsif x[0] == '$'
+        x.green
+      elsif x.match('---')
+        x.brown
+      else
+        x
+      end
+    }.join("\n")
+  end
 
+  module_function :create_dir, :start_copying_file, :handle_conflict, :copy_file, :install_dependencies, :present
 end

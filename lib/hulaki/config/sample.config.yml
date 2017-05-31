@@ -29,3 +29,6 @@ email:
   from:                            your_name <your_email@example.com>
   # This feature will let you use a template stored in `~/hulaki/template.`
   use_template:                    true
+
+search:
+  no_of_results:                    10

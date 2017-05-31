@@ -1,17 +1,23 @@
+require 'terminal-table'
 class Hulaki::Presenter
   def initialize(data)
-    @data = [data].flatten
+    no_of_results = Hulaki::Config['search'] && Hulaki::Config['search']['no_of_results'] || 10
+    @data = data[0..(no_of_results - 1)]
   end
 
   def display
-    puts '~' * 100
-    puts 'Search Results'
-    puts '~' * 100
-    @data[0..5].each do |row|
-      email = row.fetch('e_mail_1___value', 'N/A') rescue 'N/A'
-      phone_number = row.fetch('phone_1___value', 'N/A') rescue 'N/A'
-      puts "name: #{row['name']}, phone: #{phone_number}, email: #{email}" rescue nil
+    data = @data.map(&:first).map.with_index do |row, index|
+      [index+1, row['name'].bold, row['phone_1___value'].to_s.green, row['phone_2___value'], row['email']]
     end
-    puts '~' * 100
+
+    table = Terminal::Table.new :title    => "Hulaki #{Hulaki::VERSION}",
+                                :headings => ['S.N', 'Name', 'Phone 1', 'Phone 2', 'Email'],
+                                :rows     => data
+
+    table.align_column(2, :right)
+    table.align_column(3, :right)
+    table.align_column(4, :right)
+
+    puts table
   end
 end

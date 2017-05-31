@@ -28,9 +28,14 @@ class Hulaki::OptionParser
           "------- Search --------\n"\
           "$ hulaki -s search-string\n"\
           "# Example: Hulaki features fuzzy search\n"\
-          "#  $ hulaki -s smithjohn\n"\
-          "#  $ hulaki -s johsmith\n"\
-          "#  $ hulaki -s smijohnth\n"\
+          "$ hulaki -s smithjohn\n"\
+          "$ hulaki -s johsmith\n"\
+          "$ hulaki -s smijohnth\n"\
+          "\n"\
+          "------- Copy PhoneNumber to ClipBoard -----------\n"\
+          "$ hulaki -s smithjohn -c \n"\
+          "# You will see phone_number of the top result copied to ClipBoard \n"\
+          "# Number '+97798xxx66455' is copied to your clipboard\n"\
           "\n"\
           "------- SMS --------\n"\
           "$ hulaki -t +977xxxxxxxxxx -m \"Message to be sent\"\n"\
@@ -62,7 +67,7 @@ class Hulaki::OptionParser
           "# You are allowed to have an Email template in HTML format at `~/hulaki/template.html.erb` which\n"\
           "#   will be copied when you use `-i` switch. If you have `use_template` setting set to `true` then only\n"\
           "#   you will be able to use the template\n"\
-          "$ hulaki -t someone@example.com -S \"Subject of the email\" -m \"Message to be sent\"\n".brown.bold
+          "$ hulaki -t someone@example.com -S \"Subject of the email\" -m \"Messagopts.to_se to be sent\"\n"
 
 
 
@@ -83,6 +88,10 @@ class Hulaki::OptionParser
         @config.subject = subject
       end
 
+      opts.on('-c', '--copy', nil, 'Copy phone-number at top to ClipBoard; Linux users need to install `xclip`.') do
+        @config.copy_phone_number = true
+      end
+
       opts.on('-g [Gateway Name]', '--gateway [Gateway Name]', String, 'Name of the gateway, `nexmo`, `twilio`, `sparrow` are currently supported') do |gateway|
         @config.gateway = gateway
       end
@@ -91,24 +100,23 @@ class Hulaki::OptionParser
         @config.from = sender
       end
 
-      opts.on('-s [name/contact]', '--search [name/contact]', String, 'Search keyword') do |word|
-        response = Hulaki::SearchEngine.new.perform(word)
-        Hulaki::Presenter.new(response).display if response
-        exit
+      opts.on('-s [name/contact]', '--search [name/contact]', String, 'Search keyword') do |search_keyword|
+        @config.search_keyword = search_keyword
       end
 
       # ----------------------------------------------------------------------
       opts.on('-h', '--help', 'Help / Examples') do
-        puts opts.to_s.blue
+        puts Utils.present(opts)
         exit
       end
 
       opts.on('-l', '--list', 'list all the options available') do
-        puts opts.to_s.blue
+        puts Utils.present(opts)
         exit
       end
 
       opts.on('-i', '--install', 'Creates ~/hulaki/config.yml, `template.html.erb`. Will ask you if have to replace them') do
+        Utils.install_dependencies
         Utils.create_dir
         Utils.start_copying_file
         exit
