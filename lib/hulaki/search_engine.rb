@@ -43,8 +43,8 @@ class Hulaki::SearchEngine
 
   def keys_to_search
     {
-      'name'        => 2, 'first_name'  => 3, 'last_name'        => 0.8, 'given_name' => 3,
-      'family_name' => 0.8, 'email'     => 0.6, 'phone_1___value'=> 0.5, 'phone_2___value' => 0.5
+      'name'        => 2, 'first_name'  => 3, 'last_name'        => 3, 'given_name' => 3,
+      'family_name' => 3, 'email'     => 0.6, 'phone_1___value'=> 0.5, 'phone_2___value' => 0.5
     }
   end
 end
