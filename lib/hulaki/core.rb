@@ -11,6 +11,9 @@ class Hulaki::Core
     else
       handle_messaging
     end
+  rescue CSV::MalformedCSVError
+    puts 'Your contact.csv file is invalid or has invalid/malformed UTF characters.'.red
+    puts 'Please use a valid CSV file.'.red
   end
 
   private
@@ -72,7 +75,7 @@ class Hulaki::Core
   end
 
   def handle_search_and_clipboard
-    puts 
+    puts
     response = Hulaki::SearchEngine.new.perform(@config.search_keyword)
     Hulaki::Presenter.new(response).display if response
 

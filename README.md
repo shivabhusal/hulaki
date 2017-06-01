@@ -10,14 +10,24 @@
 Hulaki makes communication easier by providing ability to search through the contact list. The CLI tool also allows sending direct SMS and/or email to desired person in contact list
 
 ## Installation
+Before you install this, make sure `Ruby >= 1.9` is installed in your system. To install Ruby
+
+```bash
+$ sudo apt-get install ruby
+
+# or use RVM to install latest Ruby
+```
 
 Install this in your system using command.
 
     $ gem install hulaki
 
->**Note:**  
-    - Make sure to install this in your default ruby-version gemset. Other wise you may not be able to use the command from anywhere in your terminal emulator.  
-    - Or install in every ruby-version gemset; to make the command `$ hulaki` accessible from anywhere.
+    # To install default configs and templates
+    $ hulaki --install
+
+> **Note**: To users having multiple versions of Ruby installed  
+    - Make sure to install this in your default ruby-version gem-set. Other wise you may not be able to use the command from anywhere in your terminal emulator.  
+    - Or install in every ruby-version gem-set; to make the command `$ hulaki` accessible from anywhere.
 
 
 ## Usage:
