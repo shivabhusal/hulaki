@@ -6,5 +6,10 @@ this_file = Pathname.new(__FILE__).realpath
 $:.unshift File.expand_path("../../lib", this_file)
 
 require 'hulaki'
-config = Hulaki::OptionParser.new.parse(ARGV)
-Hulaki::Core.new(config).perform
+begin
+  cli_options = ARGV.clone
+  config = Hulaki::OptionParser.new.parse(ARGV)
+  Hulaki::Core.new(config).perform
+rescue OptionParser::InvalidOption
+  $stderr.puts "The option `#{cli_options.join(' ')}` is not valid. see `hulaki -l` for more info".red
+end
