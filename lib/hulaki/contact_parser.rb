@@ -1,5 +1,5 @@
 class Hulaki::ContactParser
-  DEFAULT =  File.expand_path('~/hulaki/contact.csv')
+  DEFAULT =  File.expand_path(Hulaki::Config['search']['contact_file_path'])
   @@default_file_path = DEFAULT
 
   def perform

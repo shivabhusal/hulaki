@@ -31,4 +31,5 @@ email:
   use_template:                    true
 
 search:
-  no_of_results:                    10
+  no_of_results:                   10
+  contact_file_path:               ~/hulaki/contact.csv
